@@ -3,7 +3,7 @@ fun main() {
 
 
 
-    val comission = getComission("Visa", 30000, 5000)
+    val comission = getComission("Vk Pay", 0, 5000)
     if (comission == EROR_LIMIT ) {
         println("Превышен лимит")
     } else println("Комиссия составит: $comission рублей.")
@@ -14,7 +14,7 @@ fun getComission (cardType: String, sumLastRemittence: Int, remittence: Int): In
         "Maestro", "Mastercard" -> (if (sumLastRemittence + remittence <= 600000 && remittence <= 150000)
             comissionMaestroMastercard(remittence)
         else EROR_LIMIT)
-        "Visa", "Мир" -> (if (sumLastRemittence <= 600000 && remittence <= 150000)
+        "Visa", "Мир" -> (if (sumLastRemittence + remittence <= 600000 && remittence <= 150000)
             comissionVisaMir(remittence, minCommission)
         else EROR_LIMIT)
         "Vk Pay" -> (if (sumLastRemittence + remittence <= 40000 && remittence <= 15000) 0 else EROR_LIMIT)
