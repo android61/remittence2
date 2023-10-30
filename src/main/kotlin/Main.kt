@@ -1,22 +1,21 @@
 const val EROR_LIMIT = -1
 fun main() {
-
-
-
-    val comission = getComission("Vk Pay", 0, 5000)
-    if (comission == EROR_LIMIT ) {
-        println("Превышен лимит")
-    } else println("Комиссия составит: $comission рублей.")
+    
+if (getComission() == ERROR_LIMIT){
+        println("Лимит превышен.")
+    }else println("Комиссия: ${getComission()}.")
 }
 
-fun getComission (cardType: String, sumLastRemittence: Int, remittence: Int): Int {
+fun getComission (cardType: String = "Vk Pay", sumLastRemittence: Int = 0, remittence: Int = 5000): Int {
     return when (cardType) {
         "Maestro", "Mastercard" -> (if (sumLastRemittence + remittence <= 600000 && remittence <= 150000)
             comissionMaestroMastercard(remittence)
         else EROR_LIMIT)
+        
         "Visa", "Мир" -> (if (sumLastRemittence + remittence <= 600000 && remittence <= 150000)
             comissionVisaMir(remittence, minCommission)
         else EROR_LIMIT)
+        
         "Vk Pay" -> (if (sumLastRemittence + remittence <= 40000 && remittence <= 15000) 0 else EROR_LIMIT)
         else -> EROR_LIMIT
     }
